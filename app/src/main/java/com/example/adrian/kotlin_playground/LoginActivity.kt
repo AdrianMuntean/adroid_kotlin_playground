@@ -23,6 +23,7 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.util.Log
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -67,7 +68,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             return true
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(email, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(emailWelcome, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok,
                             { requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS) })
         } else {
@@ -100,11 +101,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
 
         // Reset errors.
-        email.error = null
+        emailWelcome.error = null
         password.error = null
 
         // Store values at the time of the login attempt.
-        val emailStr = email.text.toString()
+        val emailStr = emailWelcome.text.toString()
         val passwordStr = password.text.toString()
 
         var cancel = false
@@ -119,12 +120,12 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(emailStr)) {
-            email.error = getString(R.string.error_field_required)
-            focusView = email
+            emailWelcome.error = getString(R.string.error_field_required)
+            focusView = emailWelcome
             cancel = true
         } else if (!isUserValid(emailStr)) {
-            email.error = getString(R.string.error_invalid_email)
-            focusView = email
+            emailWelcome.error = getString(R.string.error_invalid_email)
+            focusView = emailWelcome
             cancel = true
         }
 
@@ -143,6 +144,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun handleLogin(user: String) {
+        Log.d(this::class.java.name, "User successfully logged")
         val intent = MainActivity.newIntent(this, user)
         startActivity(intent)
     }
@@ -230,7 +232,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         val adapter = ArrayAdapter(this@LoginActivity,
                 android.R.layout.simple_dropdown_item_1line, emailAddressCollection)
 
-        email.setAdapter(adapter)
+        emailWelcome.setAdapter(adapter)
     }
 
     object ProfileQuery {

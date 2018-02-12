@@ -12,26 +12,26 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
-import kotlinx.android.synthetic.main.nav_header_main.*
+import android.util.Log
+import android.widget.TextView
+import com.example.adrian.kotlin_playground.google.SheetAccessor
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     companion object {
         var name = String()
         fun newIntent(context: Context, user: String): Intent {
             val intent = Intent(context, MainActivity::class.java)
              this.name = user
+            Log.d(this::class.java.name, "A new intent is being generated")
             return intent
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        userName.text = name
-        val compoundName = "Hello " + name
-        textView.text = compoundName
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
+        val userNameTv: TextView = findViewById(R.id.userNameWelcome)
+        val emailTv = findViewById<TextView>(R.id.emailWelcome)
+        userNameTv.text = name
+        val compoundName = "Hello " + name
+        emailTv.text = compoundName
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
@@ -73,7 +78,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_camera -> {
-                // Handle the camera action
+                Log.d(this::class.java.name, "Starting sheet activity")
+               val sheetIntent = Intent(this, SheetAccessor::class.java)
+                startActivity(sheetIntent)
             }
             R.id.nav_gallery -> {
 
