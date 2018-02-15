@@ -16,7 +16,6 @@ import android.net.Uri
 import android.util.Log
 import android.widget.TextView
 import com.example.adrian.kotlin_playground.common.FinalLinks.FORM_LINK
-import com.example.adrian.kotlin_playground.google.SheetAccessor
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
