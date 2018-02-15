@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kotlin_playground</string>
+    <string name="app_name">Money Manager</string>
 
     <!-- Strings related to login -->
     <string name="prompt_user">User</string>
@@ -13,11 +13,16 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">MoneyManager</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="android_studio">Android Studio</string>
+    <string name="title_activity_data_viewer">DataViewerActivity</string>
+    <string name="tab_text_1">Month 1</string>
+    <string name="tab_text_2">Month 2</string>
+    <string name="tab_text_3">Month 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

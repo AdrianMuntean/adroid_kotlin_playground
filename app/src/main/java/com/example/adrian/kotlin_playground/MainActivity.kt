@@ -12,8 +12,10 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.widget.TextView
+import com.example.adrian.kotlin_playground.common.FinalLinks.FORM_LINK
 import com.example.adrian.kotlin_playground.google.SheetAccessor
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -33,8 +35,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Opening in browser", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+            openAddDialog()
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -43,6 +46,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    private fun openAddDialog() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(FORM_LINK))
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
@@ -77,26 +85,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                Log.d(this::class.java.name, "Starting sheet activity")
-               val sheetIntent = Intent(this, SheetAccessor::class.java)
+            R.id.data_view -> {
+                Log.d(this::class.java.name, "Starting data viewer activity")
+                val sheetIntent = Intent(this, DataViewerActivity::class.java)
                 startActivity(sheetIntent)
             }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
+//            R.id.nav_gallery -> {
+//
+//            }
+//            R.id.nav_slideshow -> {
+//
+//            }
+//            R.id.nav_manage -> {
+//
+//            }
+//            R.id.nav_share -> {
+//
+//            }
+//            R.id.nav_send -> {
+//
+//            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

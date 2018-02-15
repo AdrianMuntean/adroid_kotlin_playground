@@ -48,6 +48,9 @@ import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static com.example.adrian.kotlin_playground.common.FinalLinks.DATA_SHEET_ID;
+import static com.example.adrian.kotlin_playground.common.FinalLinks.DATA_SHEET_NAME;
+
 public class SheetAccessor extends Activity
         implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
@@ -355,24 +358,21 @@ public class SheetAccessor extends Activity
          * @throws IOException
          */
         private List<String> getDataFromApi() throws IOException {
-            String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            String range = "Class Data!A2:E";
+            String range = DATA_SHEET_NAME + "!A2:E8";
             List<String> results = new ArrayList<>();
             ValueRange response = this.mService.spreadsheets().values()
-                    .get(spreadsheetId, range)
+                    .get(DATA_SHEET_ID, range)
                     .execute();
             List<List<Object>> values = response.getValues();
             if (values != null) {
-                results.add("Name, Major");
+                results.add("Timestamp, Date");
                 for (List row : values) {
-                    results.add(row.get(0) + ", " + row.get(4));
+                    results.add(row.get(0) + ", " + row.get(1));
                     Log.d(this.getClass().getName(), row.get(0).toString());
                 }
             }
             return results;
         }
-
-
 
         @Override
         protected void onPreExecute() {
